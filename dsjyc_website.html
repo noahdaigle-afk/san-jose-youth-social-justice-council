@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>San José Diocese Youth Social Justice Council</title>
+  <meta name="description" content="The San José Diocese Youth Social Justice Council forms young Catholic leaders, amplifies youth voice, and advances social justice through education, dialogue, advocacy, and service.">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --navy: #172653;
+      --navy-2: #0f1938;
+      --gold: #c8a24a;
+      --gold-soft: #ead9a5;
+      --cream: #f7f4ed;
+      --paper: #fffdf9;
+      --ink: #16213b;
+      --muted: #677187;
+      --line: #dfe3ea;
+      --lavender: #eef0f7;
+      --red: #8f2f35;
+      --green: #294b45;
+      --shadow: 0 18px 50px rgba(15,25,56,.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: light-dark(#fffdf9, #0d1224);
+      color: light-dark(var(--ink), #edf1fb);
+      line-height: 1.6;
+    }
+
+    .app-root {
+      min-height: 100vh;
+      background-color: light-dark(#fffdf9, #0d1224);
+      color: light-dark(var(--ink), #edf1fb);
+      border-radius: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .nav-shell {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: light-dark(rgba(255,253,249,.92), rgba(13,18,36,.92));
+      border-bottom: 1px solid light-dark(rgba(223,227,234,.85), rgba(255,255,255,.09));
+    }
+
+    .nav {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 250px;
+    }
+
+    .crest {
+      width: 42px;
+      height: 48px;
+      border: 2px solid var(--gold);
+      border-radius: 10px 10px 15px 15px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: .08em;
+      background: linear-gradient(180deg, rgba(200,162,74,.15), transparent);
+    }
+
+    .brand-title { font-weight: 800; letter-spacing: -.02em; }
+    .brand-sub { color: var(--muted); font-size: 12px; margin-top: -2px; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a { color: light-dark(#28344f, #d8def1); position: relative; padding: 27px 0 24px; }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 14px;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .nav-cta {
+      padding: 11px 17px !important;
+      border-radius: 999px;
+      background: var(--navy);
+      color: white !important;
+    }
+    .nav-cta:hover::after { display: none; }
+
+    .hero {
+      position: relative;
+      min-height: 690px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 22%, rgba(200,162,74,.18), transparent 28%),
+        radial-gradient(circle at 80% 68%, rgba(143,47,53,.14), transparent 30%),
+        linear-gradient(135deg, #101a3d 0%, #1d2a5b 47%, #273a72 100%);
+      color: #fff;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(7,13,30,.15), rgba(7,13,30,.55)),
+        repeating-linear-gradient(115deg, transparent 0 70px, rgba(255,255,255,.025) 70px 72px);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      width: min(1180px, calc(100% - 40px));
+      position: relative;
+      z-index: 1;
+      padding: 90px 0 95px;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--gold-soft);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--gold); }
+
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: .98;
+      letter-spacing: -.055em;
+      margin: 0;
+      max-width: 800px;
+    }
+
+    .hero p {
+      color: #dbe3f5;
+      font-size: 18px;
+      max-width: 680px;
+      margin: 25px 0 0;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 32px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 13px 21px;
+      font-weight: 800;
+      font-size: 14px;
+      border: 1px solid transparent;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--gold); color: var(--navy-2); box-shadow: 0 12px 25px rgba(200,162,74,.24); }
+    .btn-secondary { border-color: rgba(255,255,255,.25); color: #fff; background: rgba(255,255,255,.06); }
+
+    .hero-card {
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.22);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-card h3 { margin: 0 0 18px; font-size: 14px; text-transform: uppercase; letter-spacing: .12em; color: var(--gold-soft); }
+    .hero-card .mission-line { font-size: 25px; line-height: 1.25; font-weight: 700; margin: 0; }
+    .hero-card .divider { height: 1px; background: rgba(255,255,255,.13); margin: 22px 0; }
+    .hero-card ul { margin: 0; padding-left: 19px; color: #dce4f8; }
+    .hero-card li + li { margin-top: 7px; }
+
+    .section {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 105px 0;
+    }
+    .section.alt { width: 100%; background: light-dark(var(--lavender), #151b31); }
+    .section.alt > .inner { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+    .kicker { color: var(--red); text-transform: uppercase; letter-spacing: .14em; font-size: 11px; font-weight: 900; }
+    h2 { font-size: clamp(34px, 5vw, 56px); line-height: 1.02; letter-spacing: -.04em; margin: 10px 0 17px; }
+    .lead { font-size: 18px; color: var(--muted); max-width: 800px; }
+
+    .mission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 48px; }
+    .card {
+      background: light-dark(var(--paper), #171d34);
+      border: 1px solid light-dark(var(--line), #2b3350);
+      border-radius: 23px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .card-num { color: var(--gold); font-weight: 900; letter-spacing: .08em; font-size: 12px; }
+    .card h3 { margin: 11px 0 8px; font-size: 22px; }
+    .card p { color: var(--muted); margin: 0; }
+
+    .pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 44px; }
+    .pillar {
+      padding: 28px;
+      border-top: 3px solid var(--gold);
+      background: light-dark(var(--paper), #171d34);
+      border: 1px solid light-dark(var(--line), #2b3350);
+      border-radius: 20px;
+    }
+    .pillar h3 { margin: 0 0 9px; font-size: 21px; }
+    .pillar ul { margin: 0; padding-left: 18px; color: var(--muted); }
+    .pillar li + li { margin-top: 7px; }
+
+    .advocacy-wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: start; }
+    .issue-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; }
+    .issue {
+      padding: 20px 18px;
+      border-radius: 17px;
+      background: light-dark(#f7f3e9, #1b223a);
+      border: 1px solid light-dark(#e2d9bf, #2d3551);
+      font-weight: 750;
+    }
+    .issue span { display: block; color: var(--muted); font-size: 13px; font-weight: 500; margin-top: 4px; }
+
+    .timeline { margin-top: 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .step { padding: 23px; border-left: 2px solid var(--gold); background: light-dark(var(--paper), #171d34); border-radius: 0 16px 16px 0; }
+    .step strong { display: block; color: var(--navy); font-size: 15px; margin-bottom: 7px; }
+    .step span { color: var(--muted); font-size: 13px; }
+
+    .join-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 45px; align-items: start; }
+    .join-card { background: var(--navy); color: #fff; padding: 34px; border-radius: 25px; }
+    .join-card h3 { margin-top: 0; font-size: 24px; }
+    .join-card p { color: #dae2f4; }
+    .join-card ul { margin: 20px 0 0; padding-left: 19px; color: #dae2f4; }
+    .join-card li + li { margin-top: 7px; }
+
+    form { display: grid; gap: 13px; }
+    .field { display: grid; gap: 6px; }
+    label { font-size: 13px; font-weight: 800; }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid light-dark(var(--line), #2e3857);
+      background: light-dark(#fff, #12172b);
+      color: light-dark(var(--ink), #f0f3fb);
+      border-radius: 14px;
+      padding: 13px 14px;
+      outline: none;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(200,162,74,.13); }
+    textarea { min-height: 120px; resize: vertical; }
+    .form-note { color: var(--muted); font-size: 12px; }
+
+    .about-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: stretch; margin-top: 45px; }
+    .quote {
+      background: linear-gradient(145deg, light-dark(#f7f3e9, #1a2139), light-dark(#eeeaf6, #151b30));
+      border-radius: 24px;
+      padding: 35px;
+      border: 1px solid light-dark(var(--line), #2b3452);
+    }
+    .quote p { font-size: 27px; line-height: 1.25; letter-spacing: -.02em; font-weight: 720; margin: 0; }
+    .quote small { display: block; margin-top: 20px; color: var(--muted); }
+
+    .people { display: grid; gap: 14px; }
+    .person { padding: 21px; border: 1px solid light-dark(var(--line), #2b3452); border-radius: 18px; background: light-dark(var(--paper), #171d34); }
+    .person .role { color: var(--gold); font-size: 11px; text-transform: uppercase; letter-spacing: .12em; font-weight: 900; }
+    .person h4 { margin: 6px 0 4px; font-size: 19px; }
+    .person p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    footer { background: var(--navy-2); color: #fff; padding: 60px 0 24px; }
+    .footer-inner { width: min(1180px, calc(100% - 40px)); margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+    .footer-title { font-weight: 850; font-size: 18px; }
+    footer p, footer a { color: #bfc8dc; font-size: 13px; }
+    footer a:hover { color: #fff; }
+    .footer-bottom { width: min(1180px, calc(100% - 40px)); margin: 35px auto 0; padding-top: 19px; border-top: 1px solid rgba(255,255,255,.1); color: #8e99b2; font-size: 12px; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translate(-50%, 20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      background: var(--navy-2);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 999px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.2);
+      font-size: 13px;
+      z-index: 50;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 950px) {
+      .nav-links { display: none; }
+      .hero-inner, .advocacy-wrap, .join-grid, .about-grid { grid-template-columns: 1fr; }
+      .mission-grid { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .hero { min-height: auto; }
+    }
+
+    @media (max-width: 640px) {
+      .nav { width: min(100% - 24px, 1180px); height: 68px; }
+      .brand-sub { display: none; }
+      .brand { min-width: 0; }
+      .section { width: calc(100% - 24px); padding: 76px 0; }
+      .section.alt > .inner { width: calc(100% - 24px); }
+      .hero-inner { width: calc(100% - 24px); padding: 76px 0 76px; gap: 30px; }
+      .hero p { font-size: 16px; }
+      .hero-card { padding: 23px; }
+      .pillars, .issue-list, .timeline, .footer-inner { grid-template-columns: 1fr; }
+      h2 { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-root">
+    <header class="nav-shell">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="#home" data-nav>
+          <div class="crest" aria-hidden="true">SJ</div>
+          <div>
+            <div class="brand-title">San José Diocese</div>
+            <div class="brand-sub">Youth Social Justice Council</div>
+          </div>
+        </a>
+        <div class="nav-links">
+          <a href="#about" data-nav>About Us</a>
+          <a href="#work" data-nav>Our Work</a>
+          <a href="#advocacy" data-nav>Our Advocacy</a>
+          <a href="#join" data-nav class="nav-cta">Join the Council</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-inner">
+          <div>
+            <div class="eyebrow">Faith · Justice · Youth Leadership</div>
+            <h1>Young voices. Catholic roots. A call to justice.</h1>
+            <p>The San José Diocese Youth Social Justice Council brings together Catholic high school students to learn, listen, lead, and help shape the social justice ministry of our Diocese.</p>
+            <div class="hero-actions">
+              <a href="#join" class="btn btn-primary">Join the Council</a>
+              <a href="#work" class="btn btn-secondary">Explore Our Work</a>
+            </div>
+          </div>
+          <aside class="hero-card">
+            <h3>Our mission</h3>
+            <p class="mission-line">To form young Catholic leaders who understand social justice, listen to their communities, and help advance the common good.</p>
+            <div class="divider"></div>
+            <ul>
+              <li>Learn how Catholic Social Teaching applies locally and nationally.</li>
+              <li>Understand how lasting, systemic change takes place.</li>
+              <li>Partner with diocesan leaders to strengthen social justice ministry.</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="kicker">About the Council</div>
+        <h2>A council built around youth voice and formation.</h2>
+        <p class="lead">The Council is a diocesan youth leadership body made up of Catholic high school students connected to schools, parishes, and youth ministries across the Diocese of San José. Members gather for formation, dialogue, service opportunities, field experiences, and conversations about the issues affecting young people and their communities.</p>
+
+        <div class="mission-grid">
+          <article class="card">
+            <div class="card-num">01 · LISTEN</div>
+            <h3>Bring youth perspective</h3>
+            <p>Make space for the questions, experiences, concerns, and ideas of young Catholics in diocesan social justice conversations.</p>
+          </article>
+          <article class="card">
+            <div class="card-num">02 · FORM</div>
+            <h3>Learn the tradition</h3>
+            <p>Build a grounded understanding of Catholic Social Teaching and the practical work of pursuing the common good.</p>
+          </article>
+          <article class="card">
+            <div class="card-num">03 · LEAD</div>
+            <h3>Turn formation into action</h3>
+            <p>Develop the skills to collaborate, communicate, organize, and contribute thoughtfully to the life of the Church and community.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt" id="work">
+        <div class="inner">
+          <div class="kicker">What We Do</div>
+          <h2>Formation first. Action with purpose.</h2>
+          <p class="lead">Our work is designed to move from learning to reflection to responsible action. Members may contribute through several areas of Council life.</p>
+          <div class="pillars">
+            <article class="pillar">
+              <h3>Leadership Formation</h3>
+              <ul>
+                <li>Public speaking and facilitation</li>
+                <li>Catholic Social Teaching formation</li>
+                <li>Retreats, reflection, and team building</li>
+                <li>Leadership development and succession</li>
+              </ul>
+            </article>
+            <article class="pillar">
+              <h3>Educational Programming</h3>
+              <ul>
+                <li>Student workshops and teach-ins</li>
+                <li>Conversations on current social issues</li>
+                <li>Partnerships with schools, parishes, and community venues</li>
+                <li>Interactive learning and dialogue</li>
+              </ul>
+            </article>
+            <article class="pillar">
+              <h3>Outreach & Partnerships</h3>
+              <ul>
+                <li>School and campus ministry relationships</li>
+                <li>Parish youth ministry outreach</li>
+                <li>Regional Catholic partnerships</li>
+                <li>Conference and retreat networking</li>
+              </ul>
+            </article>
+            <article class="pillar">
+              <h3>Advocacy & Youth Voice</h3>
+              <ul>
+                <li>Youth perspective on diocesan social justice priorities</li>
+                <li>Legislative education and preparation</li>
+                <li>Community listening and issue research</li>
+                <li>Field experiences, including Sacramento advocacy work</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="advocacy">
+        <div class="advocacy-wrap">
+          <div>
+            <div class="kicker">Our Advocacy</div>
+            <h2>Listen locally. Think broadly. Act faithfully.</h2>
+            <p class="lead">The Council approaches social justice through a Catholic lens centered on human dignity, solidarity, the common good, and the responsibility to accompany communities facing hardship.</p>
+            <p class="lead">Issues addressed by the Council are informed by youth experience, community needs, Catholic teaching, and the Council's formation process.</p>
+          </div>
+          <div class="issue-list" aria-label="Areas of interest">
+            <div class="issue">Immigration <span>Accompaniment, dignity, and community support</span></div>
+            <div class="issue">Mental Health <span>Whole-person care and youth wellbeing</span></div>
+            <div class="issue">Housing & Poverty <span>Human dignity and the needs of neighbors experiencing hardship</span></div>
+            <div class="issue">Creation Care <span>Responsibility for our common home</span></div>
+            <div class="issue">Human Trafficking <span>Protection, dignity, and awareness</span></div>
+            <div class="issue">Civic Engagement <span>Learning how public decisions affect communities</span></div>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="step"><strong>Listen</strong><span>Gather youth perspectives and learn from people directly affected by an issue.</span></div>
+          <div class="step"><strong>Learn</strong><span>Study Catholic Social Teaching, local context, and credible evidence.</span></div>
+          <div class="step"><strong>Discern</strong><span>Reflect, pray, discuss, and identify responsible ways to respond.</span></div>
+          <div class="step"><strong>Act</strong><span>Partner with the Church and community through education, service, and advocacy.</span></div>
+        </div>
+      </section>
+
+      <section class="section alt" id="join">
+        <div class="inner">
+          <div class="join-grid">
+            <div class="join-card">
+              <div class="kicker" style="color:#ead9a5;">Join the Council</div>
+              <h3>Bring your questions. Bring your faith. Bring your voice.</h3>
+              <p>The Council is looking for students who are willing to listen deeply, learn seriously, work collaboratively, and grow as Catholic leaders.</p>
+              <ul>
+                <li>High school students connected to the Diocese of San José</li>
+                <li>Interested in Catholic Social Teaching and community issues</li>
+                <li>Willing to participate consistently and contribute to a team</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3 style="margin-top:0;">Student Interest Form</h3>
+              <form id="joinForm">
+                <div class="field"><label for="name">Name</label><input id="name" name="name" required placeholder="Your name"></div>
+                <div class="field"><label for="school">School</label><input id="school" name="school" required placeholder="School name"></div>
+                <div class="field"><label for="grade">Grade</label><select id="grade" name="grade" required><option value="">Select</option><option>9th</option><option>10th</option><option>11th</option><option>12th</option></select></div>
+                <div class="field"><label for="parish">Parish / Youth Ministry</label><input id="parish" name="parish" placeholder="Optional"></div>
+                <div class="field"><label for="interest">What draws you to social justice?</label><textarea id="interest" name="interest" required placeholder="Tell us a little about what you care about."></textarea></div>
+                <button class="btn btn-primary" type="submit">Submit Interest</button>
+                <div class="form-note">Prototype form: connect this to the Council's official Google Form or intake system before launch.</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="about-grid">
+          <div class="quote">
+            <div class="kicker">How We Lead</div>
+            <p>“The goal is not simply to create events. It is to form young people who can carry a Catholic vision of justice into their schools, parishes, communities, and future lives.”</p>
+            <small>Founding leadership vision · 2026–2027</small>
+          </div>
+          <div class="people" aria-label="Leadership">
+            <div class="person">
+              <div class="role">Moderator</div>
+              <h4>Fr. Michael Carson</h4>
+              <p>Pastoral moderator and advisor to the Council.</p>
+            </div>
+            <div class="person">
+              <div class="role">President</div>
+              <h4>Noah Daigle</h4>
+              <p>Leads Council strategy, executive coordination, and the development of the Council's long-term structure.</p>
+            </div>
+            <div class="person">
+              <div class="role">Executive Leadership</div>
+              <h4>Student-led, committee-based</h4>
+              <p>Standing committees organize the Council's work across outreach, formation, education, advocacy, communications, and events.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <div class="footer-title">San José Diocese Youth Social Justice Council</div>
+          <p>A youth leadership initiative serving the Diocese of San José through faith, formation, dialogue, service, and advocacy.</p>
+        </div>
+        <div>
+          <div class="footer-title">Explore</div>
+          <p><a href="#about">About Us</a></p>
+          <p><a href="#work">Our Work</a></p>
+          <p><a href="#advocacy">Our Advocacy</a></p>
+          <p><a href="#join">Join the Council</a></p>
+        </div>
+        <div>
+          <div class="footer-title">For Partners</div>
+          <p>Schools · Parishes · Youth Ministries</p>
+          <p>Retreats · Community Organizations · Diocesan Ministries</p>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 San José Diocese Youth Social Justice Council · Working website prototype</div>
+    </footer>
+
+    <div class="toast" id="toast">Thanks — your interest has been recorded in this prototype.</div>
+  </div>
+
+  <script>
+    const navLinks = [...document.querySelectorAll('[data-nav]')];
+    const sections = [...document.querySelectorAll('main section[id]')];
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+      });
+    }, { rootMargin: '-30% 0px -55% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+
+    document.getElementById('joinForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const toast = document.getElementById('toast');
+      toast.textContent = 'Thanks — your interest has been captured in this prototype.';
+      toast.classList.add('show');
+      event.target.reset();
+      setTimeout(() => toast.classList.remove('show'), 3200);
+    });
+  </script>
+</body>
+</html>
